@@ -23,6 +23,10 @@ class Todo
     #[ORM\Column]
     private ?bool $completed = null;
 
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $DateLimite = null;
+
+
     public function getId(): ?int
     {
         return $this->id;
@@ -63,4 +67,17 @@ class Todo
 
         return $this;
     }
+
+    public function getDateLimite(): ?\DateTimeInterface
+    {
+        return $this->DateLimite;
+    }
+
+    public function setDateLimite(?\DateTimeInterface $DateLimite): static
+    {
+        $this->DateLimite = $DateLimite;
+
+        return $this;
+    }
+
 }
