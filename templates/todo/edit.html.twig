@@ -3,11 +3,9 @@
 {% block title %}Edit Todo{% endblock %}
 
 {% block body %}
-    <h1>Edit Todo</h1>
+    <h1 class="text-2xl font-bold text-black text-center">Modifier todo</h1>
 
-    {{ include('todo/_form.html.twig', {'button_label': 'Update'}) }}
+    {{ include('todo/_form.html.twig', {'button_label': 'Modifier'}) }}
 
-    <a href="{{ path('app_todo_index') }}">back to list</a>
-
-    {{ include('todo/_delete_form.html.twig') }}
+    <a href="{{ path('app_todo_index') }}">Revenir à la liste</a>
 {% endblock %}
