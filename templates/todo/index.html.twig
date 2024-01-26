@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Todo index{% endblock %}
+
+{% block body %}
+    <h1>Todo index</h1>
+    <!-- TW Elements is free under AGPL, with commercial license required for specific uses. See more details: https://tw-elements.com/license/ and contact us for queries at tailwind@mdbootstrap.com -->
+    <div class="flex flex-col">
+        <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
+            <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
+                <div class="overflow-hidden">
+                    <table class="min-w-full text-left text-sm font-light">
+                        <thead class="border-b font-medium dark:border-neutral-500">
+                        <tr>
+                            <th scope="col" class="px-6 py-4">Id</th>
+                            <th scope="col" class="px-6 py-4">Name</th>
+                            <th scope="col" class="px-6 py-4">Details</th>
+                            <th scope="col" class="px-6 py-4">Completed</th>
+                            <th scope="col" class="px-6 py-4">Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for todo in todos %}
+                            <tr>
+                                <td class="whitespace-nowrap px-6 py-4">{{ todo.id }}</td>
+                                <td class="whitespace-nowrap px-6 py-4">{{ todo.name }}</td>
+                                <td class="whitespace-nowrap px-6 py-4">{{ todo.details }}</td>
+                                <td class="whitespace-nowrap px-6 py-4">{{ todo.completed ? 'Yes' : 'No' }}</td>
+                                <td class="whitespace-nowrap px-6 py-4">
+                                    <a href="{{ path('app_todo_show', {'id': todo.id}) }}">show</a>
+                                    <a href="{{ path('app_todo_edit', {'id': todo.id}) }}">edit</a>
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="5">no records found</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <a href="{{ path('app_todo_new') }}">Create new</a>
+{% endblock %}
