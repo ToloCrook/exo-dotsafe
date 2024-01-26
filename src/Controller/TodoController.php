@@ -15,10 +15,25 @@ use Symfony\Component\Routing\Annotation\Route;
 class TodoController extends AbstractController
 {
     #[Route('/', name: 'app_todo_index', methods: ['GET'])]
-    public function index(TodoRepository $todoRepository): Response
+    public function index(TodoRepository $todoRepository, EntityManagerInterface $em): Response
     {
+        $totalNumberDql = "SELECT COUNT (t) FROM App\Entity\Todo t";
+
+        $query = $em->createQuery($totalNumberDql);
+
+        $totalNumber = $query->getResult();
+
+        $completedDql = "SELECT COUNT (t) FROM App\Entity\Todo t WHERE t.completed = 1 ";
+
+        $queryCompleted = $em->createQuery($completedDql);
+
+        $completed = $queryCompleted->getResult();
+
+
         return $this->render('todo/index.html.twig', [
             'todos' => $todoRepository->findAll(),
+            'totalNumber' => $totalNumber[0][1],
+            'completed' => $completed[0][1]
         ]);
     }
 

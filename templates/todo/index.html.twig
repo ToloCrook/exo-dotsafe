@@ -13,6 +13,9 @@
         </button>
     </a>
 
+    <p>Nombre de Todo complété : {{ completed }} </p>
+    <p>Nombre de Todo total : {{ totalNumber }}</p>
+
     <div class="flex flex-row flex-wrap gap-5">
         {% for todo in todos %}
             <!-- TW Elements is free under AGPL, with commercial license required for specific uses. See more details: https://tw-elements.com/license/ and contact us for queries at tailwind@mdbootstrap.com -->
@@ -42,22 +45,24 @@
                             class="mb-4 text-base  leading-normal text-neutral-600 dark:text-neutral-200">
                         {{ todo.details }}
                     </p>
+
+                    <h6 class="mb-2 text-base font-medium leading-tight text-neutral-500 dark:text-neutral-50">
+                        Date Limite : {{ todo.datelimite |date('d-m-Y') }}
+
+                    </h6>
                     <a
                             type="button"
                             href="{{ path('app_todo_edit', {'id': todo.id}) }}"
                             class="pointer-events-auto mr-5 inline-block cursor-pointer rounded text-base font-normal leading-normal text-primary transition duration-150 ease-in-out hover:text-primary-600 focus:text-primary-600 focus:outline-none focus:ring-0 active:text-primary-700">
                         Modifier
                     </a>
-                    <form method="post" action="{{ path('app_todo_delete', {'id': todo.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette todo?');">
+                    <form method="post" action="{{ path('app_todo_delete', {'id': todo.id}) }}"
+                          onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette todo?');">
                         <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ todo.id) }}">
-                        <button class="pointer-events-auto inline-block cursor-pointer rounded text-base font-normal leading-normal text-primary transition duration-150 ease-in-out hover:text-primary-600 focus:text-primary-600 focus:outline-none focus:ring-0 active:text-primary-700">Supprimer</button>
+                        <button class="pointer-events-auto inline-block cursor-pointer rounded text-base font-normal leading-normal text-primary transition duration-150 ease-in-out hover:text-primary-600 focus:text-primary-600 focus:outline-none focus:ring-0 active:text-primary-700">
+                            Supprimer
+                        </button>
                     </form>
-                    {#                <a#}
-                    {#                        type="button"#}
-                    {#                        href="#"#}
-                    {#                        class="pointer-events-auto inline-block cursor-pointer rounded text-base font-normal leading-normal text-primary transition duration-150 ease-in-out hover:text-primary-600 focus:text-primary-600 focus:outline-none focus:ring-0 active:text-primary-700">#}
-                    {#                    Supprimer#}
-                    {#                </a>#}
                 </div>
             </div>
         {% endfor %}
